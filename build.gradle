@@ -1,0 +1,55 @@
+plugins {
+    id 'fabric-loom' version '1.8-SNAPSHOT'
+}
+
+version = "1.0.0"
+group = "dev.shadowsoffire"
+
+base {
+    archivesName = "vitalityfix"
+}
+
+repositories {
+    maven { url = 'https://maven.parchmentmc.org' }
+    maven { url = "https://jitpack.io/" }
+    flatDir {
+        dirs '../ZenithAttributes-master/ZenithAttributes-master/build/libs'
+    }
+}
+
+loom {
+    // No access widener needed
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.20.1"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.20.1:2023.06.26@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:0.16.10"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.92.2+1.20.1"
+
+    // MixinSquared for targeting other mixins
+    implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.2.0"))
+
+    // ZenithAttributes - compile only (already remapped)
+    modCompileOnly name: 'zenith_attributes-0.2.10'
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}

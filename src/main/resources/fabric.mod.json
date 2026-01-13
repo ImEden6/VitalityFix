@@ -1,0 +1,22 @@
+{
+    "schemaVersion": 1,
+    "id": "vitalityfix",
+    "version": "${version}",
+    "name": "Vitality Fix",
+    "description": "Fixes Bursting Vitality healing boost in ZenithAttributes",
+    "authors": ["ImEden6"],
+    "contact": {
+        "sources": "https://github.com/ImEden6/VitalityFix"
+    },
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {},
+    "mixins": [
+        "vitalityfix.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.0",
+        "minecraft": "~1.20.1",
+        "zenith_attributes": "*"
+    }
+}
